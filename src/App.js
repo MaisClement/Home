@@ -197,7 +197,7 @@ class Default extends React.Component {
 	getTrain() {
 		const base = 'https://navika.hackernwar.com/v0.1/'
 		const stop = 'stop_area:IDFM:41234';
-		const url = base + 'schedules?s=' + stop;
+		const url = base + 'schedules_line?s=' + stop + '&l=C01736';
 
 		fetch(url)
 			.then(res => res.json())
@@ -228,7 +228,6 @@ class Default extends React.Component {
 		return (
 			<>
 				<Clock />
-
 				{this.state.timer < 1000 * 15 ?
 					<>
 						<Weather
@@ -277,23 +276,17 @@ class Default extends React.Component {
 												/>
 											</>
 											:
-											<>
-												<Webcam />
-											</>
+											<Webcam />
 										}
 									</>
 								}
 							</>
 						}
-
 					</>
-
 				}
 			</>
-
 		);
 	}
-
 }
 
 

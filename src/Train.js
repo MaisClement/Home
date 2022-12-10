@@ -11,17 +11,13 @@ class Trains extends React.Component {
         return <div className="Départ">
             {this.props.trains ?
                 <>
-                    {this.props.trains.slice(0, 6).map((train, i) => (
-                        <>
-                            {train.departures.slice(0, 6).map((departure, i) => (
-                                <Train
-                                    key={i}
-                                    train={departure}
-                                    line={train}
-                                    number={i}
-                                />
-                            ))}
-                        </>
+                    {this.props.trains[0].departures.map((departure, i) => (
+                        <Train
+                            key={i}
+                            train={departure}
+                            line={this.props.trains[0]}
+                            number={i}
+                        />
                     ))}
                 </>
                 :
@@ -50,6 +46,10 @@ class Train extends React.Component {
         const informations = this.props.train.informations;
         const stop_date_time = this.props.train.stop_date_time;
         const line = this.props.line;
+
+        if (informations.message === 'terminus') {
+            return null;
+        }
 
         let real_time;
         let base_time;
@@ -90,19 +90,10 @@ class Train extends React.Component {
                 <span className="class"><img className='class_img' src={'/class/' + line.name + '.png'} alt="Logo service" /></span>
                 <span className="name">{informations.headsign.substring(0, 4)}</span>
 
-                {informations.message != 'terminus' ?
-                    <>
-                        <span className="depart">{(created_base_time.getHours() < 10) ? '0' + created_base_time.getHours() : created_base_time.getHours()}:{(created_base_time.getMinutes() < 10) ? '0' + created_base_time.getMinutes() : created_base_time.getMinutes()}</span>
-                        <Info real_time={real_time} base_time={base_time} state={informations.state} message={informations.message} />
-                        <span className="dest">{informations.direction.name}</span>
-                    </>
-                    :
-                    <>
-                        <span className="arrival">{(created_base_time.getHours() < 10) ? '0' + created_base_time.getHours() : created_base_time.getHours()}:{(created_base_time.getMinutes() < 10) ? '0' + created_base_time.getMinutes() : created_base_time.getMinutes()}</span>
-                        <Info real_time={real_time} base_time={base_time} state={informations.state} message={informations.message} />
-                        <span className="terminus">Terminus</span>
-                    </>
-                }
+                <span className="depart">{(created_base_time.getHours() < 10) ? '0' + created_base_time.getHours() : created_base_time.getHours()}:{(created_base_time.getMinutes() < 10) ? '0' + created_base_time.getMinutes() : created_base_time.getMinutes()}</span>
+                <Info real_time={real_time} base_time={base_time} state={informations.state} message={informations.message} />
+                <span className="dest">{informations.direction.name}</span>
+
             </div>
             <img src={type_img} className='trafic_img' />
             <br />
@@ -187,7 +178,7 @@ function createDate(date) {
     if (typeof date === 'undefined') {
         return new Date();
     }
-    return new Date( Date.parse(date) );
+    return new Date(Date.parse(date));
 }
 
 
