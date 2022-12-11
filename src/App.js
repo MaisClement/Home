@@ -228,7 +228,7 @@ class Default extends React.Component {
 		return (
 			<>
 				<Clock />
-				{this.state.timer < 1000 * 15 ?
+				{this.state.timer < 1000 * 15 && 1 == 3 ?
 					<>
 						<Weather
 							weather={this.state.weather}
@@ -241,7 +241,7 @@ class Default extends React.Component {
 					</>
 					:
 					<>
-						{this.state.timer < 1000 * 30 ?
+						{this.state.timer < 1000 * 30 && 1 == 3 ?
 							<>
 								<Weather
 									weather={this.state.weather}
@@ -254,7 +254,7 @@ class Default extends React.Component {
 							</>
 							:
 							<>
-								{this.state.timer < 1000 * 45 ?
+								{this.state.timer < 1000 * 45 && 1 == 3 ?
 									<>
 										<Trafic_det
 											trafic={this.state.trafic}
@@ -265,7 +265,7 @@ class Default extends React.Component {
 									</>
 									:
 									<>
-										{this.state.timer < 1000 * 60 ?
+										{this.state.timer < 1000 * 60 || 1 == 1 ?
 											<>
 												<Trafic_det
 													trafic={this.state.trafic}

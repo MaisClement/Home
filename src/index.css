@@ -135,11 +135,6 @@ h2{
   white-space: pre-line;
 }
 
-.Trafic_details{
-  overflow-x: scroll;
-  max-height: calc(100vh - 150px);
-}
-
 /* --- */
 .time{
   font-family: 'Transilien';

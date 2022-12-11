@@ -43,76 +43,71 @@ class Weather extends React.Component {
 }
 class Home extends React.Component {
 	render() {
+		return <>
+			<div className="Trafic">
+				<h1>Bonjour, </h1>
+			</div>
 
-		return (
-			<>
-				<div className="Trafic">
-					<h1>Bonjour, </h1>
-				</div>
+			<table className="Weather weather">
+				<tbody>
 
-				<table className="Weather weather">
-					<tbody>
+					{this.props.weather == true &&
+						<tr>
+							{this.props.weather_data.daily.slice(1, 4).map((weather, i) => (
+								<td>
+									<div className='weather_block'>
+										<br />
 
-						{this.props.weather == true &&
-							<tr>
-								{this.props.weather_data.daily.slice(1, 4).map((weather, i) => (
-									<td>
-										<div className='weather_block'>
-											<br />
+										<span>{getFullDate(weather.dt)}</span>
+										<br />
+										<img src={'weather/' + weather.weather[0].icon + '.png'} className='type' />
 
-											<span>{getFullDate(weather.dt)}</span>
-											<br />
-											<img src={'weather/' + weather.weather[0].icon + '.png'} className='type' />
-
-											<br /><br />
-											<span className='temp'>
-												{Math.round(weather.temp.day)}°C
+										<br /><br />
+										<span className='temp'>
+											{Math.round(weather.temp.day)}°C
+										</span>
+										<br /><br />
+										<div>
+											<span className='temp_min'>
+												{Math.round(weather.temp.min)}°C
 											</span>
-											<br /><br />
-											<div>
-												<span className='temp_min'>
-													{Math.round(weather.temp.min)}°C
-												</span>
-												<span className='temp_space'></span>
-												<span className='temp_max'>
-													{Math.round(weather.temp.max)}°C
-												</span>
-											</div>
-											<br />
-											<span>
-												{capitalizeFirstLetter(weather.weather[0].description)}
+											<span className='temp_space'></span>
+											<span className='temp_max'>
+												{Math.round(weather.temp.max)}°C
 											</span>
 										</div>
-										<div className='weather_details'>
-											<img src={wind} className='det_img' />
-											{Math.round(weather.wind_speed)} Km/h <br />
+										<br />
+										<span>
+											{capitalizeFirstLetter(weather.weather[0].description)}
+										</span>
+									</div>
+									<div className='weather_details'>
+										<img src={wind} className='det_img' />
+										{Math.round(weather.wind_speed)} Km/h <br />
 
-											<img src={wet} className='det_img' />
-											{Math.round(weather.pop * 100)} % <br />
+										<img src={wet} className='det_img' />
+										{Math.round(weather.pop * 100)} % <br />
 
-											{
-												weather.rain && weather.rain >= 1 &&
-												<>
-													<img src={moisture} className='det_img' />
-													{Math.round(weather.rain)} mm <br />
-												</>
-											}
-										</div>
-									</td>
-								))}
-							</tr>
-						}
-					</tbody>
-				</table>
-			</>
-		);
+										{
+											weather.rain && weather.rain >= 1 &&
+											<>
+												<img src={moisture} className='det_img' />
+												{Math.round(weather.rain)} mm <br />
+											</>
+										}
+									</div>
+								</td>
+							))}
+						</tr>
+					}
+				</tbody>
+			</table>
+		</>;
 	}
 
 }
 class BlockTemp extends React.Component {
 	render() {
-
-		const weather_data = this.props.weather_data;
 		const temp = this.props.temp;
 		const i = this.props.i;
 
@@ -144,84 +139,77 @@ class BlockTemp extends React.Component {
 class Graph extends React.Component {
 	render() {
 		if (this.props.weather != true) {
-			return (<></>);
+			return null;
 		}
 
 		const max = getMax(this.props.weather_data.hourly);
 		const min = getMin(this.props.weather_data.hourly);
 
-		return (
-			<>
-				<div className='weather_back'></div>
-				<table className="Weather weather">
-					<tbody>
-						{this.props.weather == true ?
-							<tr>
-								{this.props.weather_data.hourly.slice(0, 32).map((weather, i) => (
-									<>
-										{(i + 2) % 2 == 0 ?
-											<td>
-												<div className='weather_block'>
-													<br /><br />
+		return <>
+			<div className='weather_back'></div>
+			<table className="Weather weather">
+				<tbody>
+					{this.props.weather == true &&
+						<tr>
+							{this.props.weather_data.hourly.slice(0, 32).map((weather, i) => (
+								<>
+									{(i + 2) % 2 == 0 &&
+										<td>
+											<div className='weather_block'>
+												<br /><br />
 
-													<BlockTemp
-														weather_data = {this.props.weather_data}
-														temp = {weather.temp}
-														i = {i}
-														max = {max}
-														min = {min}
-													/>
+												<BlockTemp
+													weather_data={this.props.weather_data}
+													temp={weather.temp}
+													i={i}
+													max={max}
+													min={min}
+												/>
 
-													<div className='canva_point_temp' style={gstyle(weather.temp, max, min)}>
-													</div>
-													<div className='canva_line' style={rstyle(i, weather.temp, this.props.weather_data.hourly[i + 2].temp, max, min)}>
-
-													</div>
-
-													{this.props.weather_data.hourly[i - 2] ?
-														<>
-															{this.props.weather_data.hourly[i - 2].weather[0].icon.replace("04", "03") === this.props.weather_data.hourly[i].weather[0].icon.replace("04", "03") ?
-																<div className="fake_img">
-																	<span></span>
-																</div>
-																:
-																<img src={'weather/' + weather.weather[0].icon + '.png'} />
-															}
-														</>
-														:
-														<img src={'weather/' + weather.weather[0].icon + '.png'} />
-													}
-													<br />
-													{(i + 2) % 4 === 0 ?
-														<>
-															<span className="canva_lineup_time"></span>
-															<div className="canva_block_time">
-																{gtime(weather.dt)}
-															</div>
-														</>
-														:
-														<>
-															<span className="canva_linenone_time"></span>
-															<div className="canva_block_time"></div>
-														</>
-													}
+												<div className='canva_point_temp' style={gstyle(weather.temp, max, min)}>
+												</div>
+												<div className='canva_line' style={rstyle(i, weather.temp, this.props.weather_data.hourly[i + 2].temp, max, min)}>
 
 												</div>
-											</td>
-											:
-											<></>
-										}
-									</>
-								))}
-							</tr>
-							:
-							<>
-							</>
-						}
-					</tbody>
-				</table>
-			</>
-		);
+
+												{this.props.weather_data.hourly[i - 2] ?
+													<>
+														{this.props.weather_data.hourly[i - 2].weather[0].icon.replace("04", "03") === this.props.weather_data.hourly[i].weather[0].icon.replace("04", "03") ?
+															<div className="fake_img">
+																<span></span>
+															</div>
+															:
+															<img src={'weather/' + weather.weather[0].icon + '.png'} />
+														}
+													</>
+													:
+													<img src={'weather/' + weather.weather[0].icon + '.png'} />
+												}
+												<br />
+												{(i + 2) % 4 === 0 ?
+													<>
+														<span className="canva_lineup_time"></span>
+														<div className="canva_block_time">
+															{gtime(weather.dt)}
+														</div>
+													</>
+													:
+													<>
+														<span className="canva_linenone_time"></span>
+														<div className="canva_block_time"></div>
+													</>
+												}
+
+											</div>
+										</td>
+									}
+								</>
+							))}
+						</tr>
+					}
+				</tbody>
+			</table>
+		</>;
 	}
 }
 
@@ -297,7 +285,7 @@ function getMin(all) {
 			min = all[i].temp;
 		}
 	}
-	
+
 	return min;
 }
 
