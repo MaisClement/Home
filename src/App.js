@@ -228,7 +228,7 @@ class Default extends React.Component {
 		return (
 			<>
 				<Clock />
-				{this.state.timer < 1000 * 15 ?
+				{this.state.timer < 1000 * 15 || 1 == 1 ?
 					<>
 						<Weather
 							weather={this.state.weather}
