@@ -1,43 +1,116 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
+<html lang="fr">
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+<head>
+  <title>Home</title>
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
-  </body>
+  <meta name="theme-color" content="#4f474e">
+  <meta name="color-scheme" content="dark light">
+
+  <!-- <meta name="robots" content="noindex, nofollow"> -->
+
+  <meta name="author" content="Lowa">
+  <!-- Discord: @Lowa#9479 -->
+  <!-- GitHub: MaisClement -->
+
+  <link rel="icon" href="%PUBLIC_URL%/icon.ico">
+
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+
+</head>
+
+<body>
+
+  <noscript>Ce site ne fonctionne pas sans JavaScript</noscript>
+
+  <div id="root">
+    <div class="start" id="start">
+      <style>
+        @media (prefers-color-scheme: light) {
+          body {
+            background-color: #ffffff;
+          }
+        }
+        @media (prefers-color-scheme: dark) {
+          body {
+            background-color: #202020;
+          }
+        }
+
+        body {
+          margin: 0;
+        }
+
+        .loader {
+          --color: #1F5EA0;
+          --size-mid: 6vmin;
+          --size-dot: 1.5vmin;
+          --size-bar: 0.4vmin;
+          --size-square: 3vmin;
+          position: absolute;
+          margin-left: -3vmin;
+        }
+
+        .loader::before,
+        .loader::after {
+          content: '';
+          box-sizing: border-box;
+          position: absolute;
+        }
+
+        .loader.--4::before {
+          height: var(--size-bar);
+          width: 6vmin;
+          background-color: var(--color);
+          animation: loader-4 0.8s cubic-bezier(0, 0, 0.03, 0.9) infinite;
+        }
+
+        @keyframes loader-4 {
+
+          0%,
+          44%,
+          88.1%,
+          100% {
+            transform-origin: left;
+          }
+
+          0%,
+          100%,
+          88% {
+            transform: scaleX(0);
+          }
+
+          44.1%,
+          88% {
+            transform-origin: right;
+          }
+
+          33%,
+          44% {
+            transform: scaleX(1);
+          }
+        }
+
+        .start {
+          width: 100vw;
+          height: 60vh;
+          padding-top: 40vh;
+          background-size: cover;
+          background-position: center center;
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+          color: #297CD3;
+          text-align: center;
+          letter-spacing: 0.3px;
+        }
+      </style>
+      <div class="container">
+        <i class="loader --4"></i>
+      </div>
+    </div>
+  </div>
+</body>
+
 </html>

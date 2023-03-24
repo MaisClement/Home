@@ -1,410 +1,364 @@
 body {
-  background: linear-gradient(240deg, rgba(150, 50, 50, 0.3), rgba(0, 0, 200, 0));
+  background: linear-gradient(240deg, rgb(225, 196, 196), rgb(255, 255, 255));
   color: var(--text);
-  font-family: Luciole,"Segoe UI",Tahoma,Geneva,Verdana,sans-serif;
+  font-family: Luciole, "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
-  overflow: hidden;
+  overflow: hidden
 }
 
 @font-face {
-	font-family: 'Achemine';
-	src: url('assets/fonts/Achemine.ttf') format('truetype');
-}
-@font-face {
-	font-family: 'Transilien';
-	src: url('assets/fonts/TransilienSmall.ttf') format('truetype');
+  font-family: Achemine;
+  src: url(assets/fonts/Achemine.ttf) format('truetype')
 }
 
-h1{
+@font-face {
+  font-family: Transilien;
+  src: url(assets/fonts/TransilienSmall.ttf) format('truetype')
+}
+
+h1 {
   margin: 10px 20px;
+  font-size: 32px
 }
 
-.App{
+.App {
   position: absolute;
   height: 100vh;
   width: 25vw;
   top: 0;
   left: 0;
   background-color: #333;
-
-  box-shadow: 0 0 20px 0 rgba(0,0,0,0.2),0 5px 5px 0 rgba(0,0,0,0.24);
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, .2), 0 5px 5px 0 rgba(0, 0, 0, .24)
 }
-.Trafic{
+
+.Trafic {
   position: absolute;
   height: 100vh;
   width: 75vw;
   top: 0;
   left: 25vw;
-
-  animation: 0.8s ease 0s 1 normal none running SettingsOptions;
+  animation: .8s ease 0s 1 normal none running SettingsOptions
 }
+
+.Background {
+  position: absolute;
+  background-position: center center;
+  background-size: cover;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -10
+}
+
 .Webcam {
   position: absolute;
   height: 100vh;
   width: 100vw;
   top: 0;
   left: 0;
-  
   z-index: 10;
-
-  animation: 0.8s ease 0s 1 normal none running SettingsOptions;
+  animation: .8s ease 0s 1 normal none running SettingsOptions
 }
-.Départ{
+
+.Départ {
   position: absolute;
   height: 100vh;
   width: 75vw;
   top: 0;
-  left: 25vw;
-}
-.Weather {
-  position: absolute;
-  width: 75vw;
-  bottom: 0;
-  left: 25vw;
-  
-  animation: 0.8s ease 0s 1 normal none running SettingsOptions;
-}
-.menu, .weather{
-  animation: 0.8s ease 0s 1 normal none running SettingsOptions;
-}
-/* --- */ 
-
-h2{
-  margin: 15px 20px;
+  left: 25vw
 }
 
-.slug1{
-  border: 4px solid #eb2132;
-}
-.slug2{
-  border: 4px solid #f58f53;
-}
-.slug3{
-  border: 4px solid #008b5b;
-}
-.slug0{
-  border: 4px solid #ffffff00;
+.slug1 {
+  border: 4px solid #eb2132
 }
 
-.trafic_block{
+.slug2 {
+  border: 4px solid #f58f53
+}
+
+.slug3 {
+  border: 4px solid #008b5b
+}
+
+.slug0 {
+  border: 4px solid #ffffff00
+}
+
+.trafic_block {
   background-color: #00000014;
   border-radius: 10px;
-  
   margin-left: 15px;
   height: 45px;
   width: 45px;
-  display: inline-block;
+  display: inline-block
 }
-.trafic_block .img{
+
+.trafic_block .img {
   max-width: 35px;
-  padding: 5px;
+  padding: 5px
 }
-.trafic_block .trafic_img{
+
+.trafic_block .trafic_img {
   position: relative;
   top: -15px;
   left: 30px;
   height: 25px;
   width: 25px;
-  display: inline-block;
+  display: inline-block
 }
 
-.Trafic_det{
+.trafic {
   position: relative;
   top: 75px;
-  color: #ddd;
+  color: #ddd
 }
-.Trafic_det .trafic_block{
-  display: block;
+
+.trafic .trafic_block {
+  display: block
 }
-.Trafic_det b{
+
+.trafic b {
   position: relative;
   top: -45px;
   margin-left: 85px;
   font-size: 17px;
-
-  display: block;
+  display: block
 }
-.Trafic_det .line{
+
+.trafic .line {
   position: relative;
   top: -40px;
   margin: 0 10px 20px 0;
-  
-  display: block;
-}
-.line {
-  white-space: pre-line;
+  display: block
 }
 
-/* --- */
-.time{
-  font-family: 'Transilien';
+.line {
+  white-space: pre-line
+}
+
+.time {
+  font-family: Transilien;
   z-index: 50;
-  
   position: relative;
   left: -10px;
-  top: 0px;
-
+  top: 0;
   background-color: #141414;
   border-radius: 15px;
-
   padding: 15px 10px 10px 20px;
-
   color: #fcc900;
   font-size: 45px;
-
-  box-shadow: 0 0 20px 0 rgba(0,0,0,0.2),0 5px 5px 0 rgba(0,0,0,0.24);
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, .2), 0 5px 5px 0 rgba(0, 0, 0, .24)
 }
 
-.date{
+.date {
   position: relative;
   top: -5px;
-  font-weight: bold;
+  font-weight: 700;
   font-size: 17px;
   color: #fcc900;
-  z-index: 5;
+  z-index: 5
 }
 
-.App .weather{
-  color: #fff;
-  position: relative;
-  top: 70px;
-}
-.Trafic .weather{
-  color: #000;
-}
 
-.weather .type{
-  width: 120px;
-}
-.weather .temp{
-  font-weight: bold;
-  font-size: 17px;
-
-  background-color: #1c4877;
-  color: #fff;
-  padding: 5px 10px;
-  border-radius: 10px;
-}
-.weather .temp_min{
-  background-color: #38cfff;
-  color: #fff;
-  padding: 5px 10px;
-  border-radius: 10px;
-}
-.weather .temp_max{
-  background-color: #C62626;
-  color: #fff;
-  padding: 5px 10px;
-  border-radius: 10px;
-}
-.weather .temp_space{
-  width: 20px;
-  display: inline-block;
-}
-
-.weather .det_img{
+.det_img {
   width: 25px;
   position: relative;
   top: 5px;
-  margin: 0 10px;
-}
-.weather .alert{
-  background-color: #1c4877;
-  margin-top: 10px;
-  padding-top: 5px;
-}
-.weather .alert img{
-  width: 40px;
-}
-.weather .alert h2{
-  display: inline-block;
-  margin: 0;
-  position: relative;
-  top: -10px;
-  left: 10px;
+  margin: 0 10px
 }
 
-.weather_block{
-  text-align: center;
+.weather_block {
+  text-align: center
 }
 
-.weather_block img{
-  width: 35px;
+.weather_block img {
+  width: 35px
 }
-.fake_img{
+
+.fake_img {
   width: 35px;
   height: 35px;
-  display: inline-block;
+  display: inline-block
 }
-.fake_img span{
-  background-color: #776e6e;
+
+.fake_img span {
+  background-color: #ddd;
   height: 2px;
   width: 60px;
   left: -10px;
   position: relative;
-  display: inline-block;
-
+  display: inline-block
 }
-.weather td{
+
+.weather td {
   width: 55px;
   max-width: 55px;
-  min-width: 55px;
+  min-width: 55px
 }
 
-.canva_point_temp{
+.canva_point_temp {
   margin: 0 auto;
   width: 10px;
   height: 10px;
   border-radius: 20px;
-  background-color: #776e6e;
-  position: relative;
+  background-color: #ddd;
+  position: relative
 }
-.canva_block_temp{
-  position: relative;
 
+.canva_block_temp {
+  position: relative;
   font-size: 17px;
   height: 22.4px;
   padding: 5px 10px;
-
-  font-weight: bold;
-
   margin-bottom: 15px;
   display: inline-block;
+  color: #fff;
 }
-.canva_nonblock_temp{
+
+.canva_nonblock_temp {
   position: relative;
   font-size: 17px;
   height: 18px;
   padding: 5px 10px;
   margin-bottom: 15px;
-  display: inline-block;
+  display: inline-block
 }
-.canva_line{
-  background-color: #776e6e;
+
+.canva_line {
+  background-color: #ddd;
   width: 60px;
   height: 2px;
-
   display: inline-block;
-
   position: relative;
   left: 27px;
   margin-bottom: 21px;
   margin-left: 4px;
   margin-top: -6px;
-  z-index: 1;
+  z-index: 1
 }
-.canva_lineup_time{
+
+.canva_lineup_time {
   height: 10px;
   width: 2px;
-  background-color: #776e6e;
-  display: inline-block;
-}
-.canva_linenone_time{
-  height: 10px;
-  background-color: #776e6e00;
-  display: inline-block;
-}
-.canva_block_time{
-  color: #776e6e;
-  font-weight: bold;
-  height: 21px;
+  background-color: #ddd;
+  display: inline-block
 }
 
-/* --- */
-.Webcam .webcam{
+.canva_linenone_time {
+  height: 10px;
+  background-color: #ddd00;
+  display: inline-block
+}
+
+.canva_block_time {
+  color: #ddd;
+  font-weight: 700;
+  height: 21px
+}
+
+.Webcam .webcam {
   height: 100vh;
   width: 100vw;
-
   position: relative;
   display: inline-block;
   background-size: cover;
-  background-position: center center;
+  background-position: center center
 }
 
-/* --- */
-.Départ{
-  animation: 0.8s ease 0s 1 normal none running SettingsOptions;
+.Départ {
+  animation: .8s ease 0s 1 normal none running SettingsOptions
 }
-.Départ .cancelled, .Départ .late, .Départ .ok, .Départ .interrogation{
+
+.Départ .cancelled,
+.Départ .interrogation,
+.Départ .late,
+.Départ .ok {
   width: 70vw;
   border-radius: 10px;
   margin: 5px 10px 4px;
   background-color: #00000014;
-
-  display: inline-block;
+  display: inline-block
 }
 
-.Départ .cancelled{
-  border: 4px solid #eb2132;
-}
-.Départ .late{
-  border: 4px solid #f58f53;
-}
-.Départ .ok{
-  border: 4px solid #ffffff00;
-}
-.Départ .interrogation{
-  border: 4px solid #ffffff00;
+.Départ .cancelled {
+  border: 4px solid #eb2132
 }
 
+.Départ .late {
+  border: 4px solid #f58f53
+}
 
-.Départ .name{
+.Départ .ok {
+  border: 4px solid #ffffff00
+}
+
+.Départ .interrogation {
+  border: 4px solid #ffffff00
+}
+
+.Départ .name {
   position: relative;
   top: -4px;
-  font-weight: bold;
+  font-weight: 700;
   font-size: 20px;
   color: #4f4f4f;
   padding-left: 15px;
   width: 60px;
-  display: inline-block;
+  display: inline-block
 }
-.Départ .trafic{
+
+.Départ .trafic_warning {
   font-size: 17px;
   background-color: #f58f53;
   color: #fff;
   padding: 5px;
-  border-radius: 10px 10px 10px 0px;
+  border-radius: 10px 10px 10px 0;
   position: relative;
   top: 2px;
   left: -10px;
-  z-index: -10;
+  z-index: -10
 }
-.Départ .trafic_info{
+
+.Départ .trafic_info {
   font-size: 17px;
   background-color: #005bbc;
   color: #fff;
   padding: 5px;
-  border-radius: 10px 10px 10px 0px;
+  border-radius: 10px 10px 10px 0;
   position: relative;
   top: 2px;
   left: -10px;
-  z-index: -10;
+  z-index: -10
 }
-.Départ .trafic_delete{
+
+.Départ .trafic_delete {
   font-size: 17px;
   background-color: #eb2031;
   color: #fff;
   padding: 5px;
-  border-radius: 10px 10px 10px 0px;
+  border-radius: 10px 10px 10px 0;
   position: relative;
   top: 2px;
   left: -10px;
-  z-index: -10;
+  z-index: -10
 }
-.Départ .direct{
+
+.Départ .direct {
   font-size: 17px;
   background-color: #14141480;
   color: #fff;
   padding: 5px 5px 5px 15px;
-  border-radius: 0px 10px 10px 0px;
+  border-radius: 0 10px 10px 0;
   position: relative;
   top: 2px;
   left: -20px;
-  z-index: -15;
+  z-index: -15
 }
-.Départ .depart{
-  font-family: 'Transilien';
-  font-weight: bold;
+
+.Départ .depart {
+  font-family: Transilien;
+  font-weight: 700;
   font-size: 35px;
   color: #f6cd2f;
   margin-left: 15px;
@@ -412,14 +366,15 @@ h2{
   padding: 5px;
   border-radius: 10px;
   position: relative;
-  top: 0px;
+  top: 0;
   width: 85px;
   display: inline-block;
-  text-align: center;
+  text-align: center
 }
-.Départ .arrival{
-  font-family: 'Transilien';
-  font-weight: bold;
+
+.Départ .arrival {
+  font-family: Transilien;
+  font-weight: 700;
   font-size: 35px;
   color: #f6cd2f;
   margin-left: 15px;
@@ -427,205 +382,333 @@ h2{
   padding: 5px;
   border-radius: 10px;
   position: relative;
-  top: 0px;
+  top: 0;
   width: 85px;
   display: inline-block;
-  text-align: center;
+  text-align: center
 }
-.Départ .dest{
-  font-weight: bold;
+
+.Départ .dest {
+  font-weight: 700;
   font-size: 22px;
   color: #4f4f4f;
-  padding-left: 15px;
+  padding-left: 15px
 }
-.Départ .terminus{
-  font-weight: bold;
+
+.Départ .terminus {
+  font-weight: 700;
   font-size: 22px;
   color: #737373;
-  padding-left: 15px;
+  padding-left: 15px
 }
-.Départ .class{
+
+.Départ .class {
   width: 70px;
   height: 33.75px;
   display: inline-block;
   padding-left: 15px;
-  position: relative;
+  position: relative
 }
-.Départ .class_img{
+
+.Départ .class_img {
   max-width: 70px;
   max-height: 33.75px;
   position: relative;
-  top: 7px;
+  top: 7px
 }
-.Départ .trafic_img{
+
+.Départ .trafic_img {
   position: relative;
   top: 23px;
   left: -30px;
   height: 25px;
-  width: 25px;
+  width: 25px
 }
 
-/* --- */
-
-.maintenance{
+.maintenance {
   text-align: center;
-  margin-top: 20vh;
+  margin-top: 20vh
 }
 
-.maintenance img{
-  width: 150px;
+.maintenance img {
+  width: 150px
 }
 
-/* --- */
+.white-svg {
+  filter: invert(100%) sepia(93%) saturate(27%) hue-rotate(39deg) brightness(107%) contrast(107%)
+}
 
-.Night{
+.is-inline-block {
+  display: inline-block !important
+}
+
+.ml-3 {
+  margin-left: 1.5em
+}
+
+/* ---------------------------------------------------------------- */
+.Weather {
   position: absolute;
-  height: 100vh;
-  width: 100vw;
-  top: 0;
-  left: 0;
-  background-color: #333;
+  width: 75vw;
+  left: 25vw;
+  color: #fff;
+}
+
+.temp_min {
+  background-color: #297cd3;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 10px
+}
+
+.temp_max {
+  background-color: #c62626;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 10px
+}
+
+.temp_space {
+  width: 20px;
+  display: inline-block
+}
+
+.Weather .type {
+  width: 120px
+}
+
+.Weather .temp {
+  font-weight: 700;
+  font-size: 17px;
+  background-color: #1c4877;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 10px
+}
+
+
+.Graph {
+  position: absolute;
+  width: 75vw;
+  left: 25vw;
+  color: #fff;
+  animation: .8s ease 0s 1 normal none running SettingsOptions
+}
+
+/* ---------------------------------------------------------------- */
+.title {
+  position: absolute;
   color: #ddd;
-
-  z-index: 10;
+  animation: .8s ease 0s 1 normal none running SettingsOptions
 }
 
-.Night .night_img{
-  display: block;
-  width: 100px;
-  margin: 5% 5% auto auto;
-}
-
-.Night div{
+.bottom-shadow {
+  box-shadow: 0 0 60px 40px rgba(30, 30, 30, .78);
+  background-color: rgba(30, 30, 30, .7);
+  color: #fff;
   position: absolute;
-  background-color: #141414;
-  padding: 10px;
-  border-radius: 15px;
-  display: inline-block;
-  box-shadow: 0 0 20px 0 rgba(0,0,0,0.2),0 5px 5px 0 rgba(0,0,0,0.24);
+  animation: .8s ease 0s 1 normal none running SettingsOptions
 }
 
-.Night .night_eco{
-  width: 50px;
+.temperature {
+  position: absolute;
+  margin: 30px;
+  color: #fff;
 }
 
-.Night h2{
-  display: inline-block;
-  position: relative;
-  top: -15px;
+.description {
+  font-size: 20px
 }
-.Night span{
+
+.value {
+  font-size: 140px;
+  font-weight: 700;
+}
+
+.unit {
   position: relative;
-  display: inline-block;
-  text-align: center;
-  width: 100%;
-  top: -7px;
+  top: -80px
+}
+
+.details {
+  position: absolute;
+  margin: 30px;
+  color: #fff
+}
+
+.weather .description {
+  width: 180px;
+}
+
+.graph .description {
+  width: 180px;
+}
+
+/* ---------------------------------------------------------------- */
+.home .title {
+  top: 65vh;
+  left: 0;
+  opacity: 1;
+}
+
+.home .bottom-shadow {
+  bottom: -0vh;
+  width: 100vw;
+  height: 25vh;
+}
+
+.home .temperature {
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: initial;
+  align-items: end;
+  width: 355px;
+  justify-content: flex-end;
+}
+
+.home .details {
+  right: 0;
+  bottom: 0;
+  width: 355px;
+  text-align: end;
+}
+
+.home .Graph {
+  bottom: -100vh;
+}
+
+.home .Weather {
+  bottom: -100vh;
+}
+
+.home .description {
+  position: relative;
+  bottom: 25px;
+}
+
+/* ---------------------------------------------------------------- */
+.weather .title {
+  top: -10vh;
+  left: 0;
+  opacity: 0;
+}
+
+.weather .bottom-shadow {
+  bottom: 0vh;
+  width: 100vw;
+  height: 100vh;
+}
+
+.weather .temperature {
+  bottom: 0;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: end;
+  justify-content: flex-end;
+  width: calc(100vw - 40px);
+}
+
+.weather .temperature .value {
+  font-size: 110px;
+}
+
+.weather .temperature .unit {
+  top: -60px;
+}
+
+.weather .details {
+  right: 0;
+  bottom: 0;
+  width: calc(100vw - 40px);
+  text-align: start;
+}
+
+.weather .Graph {
+  bottom: -100vh;
+}
+
+.weather .Weather {
+  bottom: 0vh;
+  transition-delay: 0.3s;
+}
+
+.weather .description {
+  width: 180px;
+  position: relative;
+  bottom: 25px;
+}
+
+/* ---------------------------------------------------------------- */
+.graph .title {
+  top: -10vh;
+  left: 0;
+  opacity: 0;
+}
+
+.graph .bottom-shadow {
+  bottom: 0vh;
+  width: 100vw;
+  height: 100vh;
+}
+
+.graph .temperature {
+  bottom: 0;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: end;
+  justify-content: flex-end;
+  width: calc(100vw - 40px);
+}
+
+.graph .temperature .value {
+  font-size: 110px;
+}
+
+.graph .temperature .unit {
+  top: -60px;
+}
+
+.graph .details {
+  right: 0;
+  bottom: 0;
+  width: calc(100vw - 40px);
+  text-align: start;
+}
+
+.graph .Graph {
+  bottom: 0vh;
+}
+
+.graph .Weather {
+  bottom: 100vh;
+}
+
+.weather .description {
+  width: 180px;
+  position: relative;
+  bottom: 25px;
+}
+
+/* ---------------------------------------------------------------- */
+
+.home>*,
+.weather>*,
+.temperature>*,
+.value,
+.unit {
+  transition: all 1s ease;
 }
 
 @keyframes SettingsOptions {
-	0% {
-		margin-left:50px;
-		margin-right:-50px;
-		opacity:0;
-	}
-	100% {
-		margin-left:0;
-		opacity:1;
-	}
-}
+  0% {
+    margin-left: 50px;
+    margin-right: -50px;
+    opacity: 0;
+  }
 
-
-.menu{
-  position: relative;
-  top: 150px;
-  color: #fff;
-}
-.menu_button{
-  margin: 0 10px 0px 15px;
-  padding: 10px 0;
-  border-bottom: 2px #7f7f7f solid;
-  font-size: 20px;
-}
-.menu_button_det{
-  margin: 0 5px 0px 15px;
-  padding: 5px 0;
-  border-bottom: 2px #7f7f7f solid;
-  font-size: 10px;
-}
-.toggle{
-  position: relative;
-  top: 55px;
-  margin-left: 10px;
-}
-.toggle_name{
-  margin-left: 55px; 
-}
-
-.timer{
-  top: 150px;
-  width: 7px;
-  background-color: #7f7f7f;
-  display: inline-block;
-  position: absolute;
-}
-
-/*------- Toogle -------*/
-
-.toggle-control {
-  display: block;
-  position: relative;
-  padding-left: 50px;
-  margin-bottom: 12px;
-  cursor: pointer;
-  font-size: 22px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}  
-.toggle-control input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
-}
-.toggle-control input:checked ~ .control:after {
-  left: 30px;
-}
-.toggle-control .control {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 25px;
-  width: 50px;
-  border-radius: 12.5px;
-  -webkit-transition: background-color 0.15s ease-in;
-  transition: background-color 0.15s ease-in;
-  background-color:  #7f7f7f;
-}
-.toggle-control .control:after {
-  content: "";
-  position: absolute;
-  left: 5px;
-  top: 5px;
-  width: 15px;
-  height: 15px;
-  border-radius: 12.5px;
-  background: white;
-  -webkit-transition: left 0.15s ease-in;
-  transition: left 0.15s ease-in;
-}
-.toggle-control input:checked ~ .control {
-	background-color: blue
-}
-
-.canvasjs-chart-credit, .canvasjs-chart-tooltip{
-  display: none;
-}
-
-.Temp_canva{
-  position: relative;
-  top: 50px;
-  left: 25vw;
+  100% {
+    margin-left: 0;
+    opacity: 1;
+  }
 }

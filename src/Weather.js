@@ -1,110 +1,77 @@
 import React from 'react';
 
-import wind from './assets/img/weather/wind.png';
-import wet from './assets/img/weather/wet.png';
-import moisture from './assets/img/weather/moisture.png';
+import background from './assets/img/img-nOxoOfoDljsXRcLIhKSBrvI9.png';
 
-class Weather extends React.Component {
-	render() {
-		return (
-			<div className="App">
-				<div className="weather">
-					{this.props.weather == true &&
-						<>
-							<div className='weather_block'>
-								<br />
-								<img src={'weather/' + this.props.weather_data.hourly[1].weather[0].icon + '.png'} className='type' />
+import wind from './assets/img/svg/wind.svg';
+import wet from './assets/img/svg/wet.svg';
+import moisture from './assets/img/svg/moisture.svg';
 
-								<br /><br />
-								<span className='temp'>
-									{Math.round(this.props.weather_data.hourly[1].temp)}°C
-								</span>
+const credentials = require('./crendential.json');
 
-								<br /><br />
-
-								<br />
-								<span>
-									{capitalizeFirstLetter(this.props.weather_data.hourly[1].weather[0].description)}
-								</span>
-							</div>
-							<div className='weather_details'>
-								<img src={wind} className='det_img' />
-								{Math.round(this.props.weather_data.hourly[1].wind_speed)} Km/h <br />
-
-								<img src={wet} className='det_img' />
-								{Math.round(this.props.weather_data.hourly[1].pop * 100)} % <br />
-							</div>
-						</>
-					}
-				</div>
-			</div>
-		);
-	}
-}
 class Home extends React.Component {
 	render() {
+		if (!this.props.weather || !this.props.weatherData.hourly[1]) {
+			return <>
+				<div className='Background' style={{ backgroundImage: `url(${background})` }} />
+
+				<div className='bottom-shadow'>
+				</div>
+
+				<div className="title">
+					<h1>{greetings()}, </h1>
+				</div>
+			</>;
+
+		}
+		const weather = this.props.weatherData.hourly[1];
 		return <>
-			<div className="Trafic">
-				<h1>Bonjour, </h1>
+			<div className='Background' style={{ backgroundImage: `url(${background})` }} />
+
+			<div className='bottom-shadow' />
+
+			<div className='temperature'>
+				<span className='description'>
+					{capitalizeFirstLetter(weather.weather[0].description)}
+				</span>
+				<span>
+					<span className='value'>
+						{Math.round(weather.temp)}
+					</span>
+					<span className='unit'>
+						°C
+					</span>
+				</span>
 			</div>
 
-			<table className="Weather weather">
-				<tbody>
+			<div className='details'>
+				{
+					this.props.weather
+					&& <div>
+						<br />
+						<div className='is-inline-block ml-3'>
+							<img src={wind} className='white-svg det_img' />
+							{Math.round(weather.wind_speed)} Km/h <br />
+						</div>
+						<div className='is-inline-block ml-3'>
+							<img src={wet} className='white-svg det_img' />
+							{Math.round(weather.pop * 100)} % <br />
+						</div>
+						{weather.rain && weather.rain >= 1
+							&& <div className='is-inline-block ml-3'>
+								<img src={moisture} className='white-svg det_img' />
+								{Math.round(weather.rain)} mm <br />
+							</div>
+						}
+					</div>
+				}
+			</div>
 
-					{this.props.weather == true &&
-						<tr>
-							{this.props.weather_data.daily.slice(1, 4).map((weather, i) => (
-								<td>
-									<div className='weather_block'>
-										<br />
-
-										<span>{getFullDate(weather.dt)}</span>
-										<br />
-										<img src={'weather/' + weather.weather[0].icon + '.png'} className='type' />
-
-										<br /><br />
-										<span className='temp'>
-											{Math.round(weather.temp.day)}°C
-										</span>
-										<br /><br />
-										<div>
-											<span className='temp_min'>
-												{Math.round(weather.temp.min)}°C
-											</span>
-											<span className='temp_space'></span>
-											<span className='temp_max'>
-												{Math.round(weather.temp.max)}°C
-											</span>
-										</div>
-										<br />
-										<span>
-											{capitalizeFirstLetter(weather.weather[0].description)}
-										</span>
-									</div>
-									<div className='weather_details'>
-										<img src={wind} className='det_img' />
-										{Math.round(weather.wind_speed)} Km/h <br />
-
-										<img src={wet} className='det_img' />
-										{Math.round(weather.pop * 100)} % <br />
-
-										{
-											weather.rain && weather.rain >= 1 &&
-											<>
-												<img src={moisture} className='det_img' />
-												{Math.round(weather.rain)} mm <br />
-											</>
-										}
-									</div>
-								</td>
-							))}
-						</tr>
-					}
-				</tbody>
-			</table>
+			<div className="title">
+				<h1>{greetings()}, </h1>
+				<p className='ml-3'>{isRainSoon(this.props.weatherData)}</p>
+			</div>
 		</>;
 	}
-
 }
 class BlockTemp extends React.Component {
 	render() {
@@ -116,17 +83,17 @@ class BlockTemp extends React.Component {
 
 		if (min === temp) {
 			return <div className='canva_block_temp temp_min' style={gstyle(temp, max, min)}>
-				{Math.round(temp) + '°C'}
+				<b>{Math.round(temp)}</b>°<b>C</b>
 			</div>
 
 		} else if (max === temp) {
 			return <div className='canva_block_temp temp_max' style={gstyle(temp, max, min)}>
-				{Math.round(temp) + '°C'}
+				<b>{Math.round(temp)}</b>°<b>C</b>
 			</div>
 
 		} else if ((i + 2) % 4 == 0) {
 			return <div className='canva_block_temp' style={gstyle(temp, this.props.max, min)}>
-				{Math.round(temp) + '°C'}
+				<b>{Math.round(temp)}</b>°<b>C</b>
 			</div>
 
 		} else {
@@ -136,77 +103,127 @@ class BlockTemp extends React.Component {
 		}
 	}
 }
+class Weather extends React.Component {
+	render() {
+		return <>
+			<table className="Weather">
+				<tbody>
+					<tr>
+						{this.props.weatherData.daily.slice(1, 4).map((weather, i) => (
+							<td>
+								<div className='weather_block'>
+									<br />
+
+									<span>{getFullDate(weather.dt)}</span>
+									<br />
+									<img src={'weather/' + weather.weather[0].icon + '.png'} className='type' />
+
+									<br /><br />
+									<span className='temp'>
+										{Math.round(weather.temp.day)}°<b>C</b>
+									</span>
+									<br /><br />
+									<div>
+										<span className='temp_min'>
+											{Math.round(weather.temp.min)}°<b>C</b>
+										</span>
+										<span className='temp_space'></span>
+										<span className='temp_max'>
+											{Math.round(weather.temp.max)}°<b>C</b>
+										</span>
+									</div>
+									<br />
+									<span>
+										{capitalizeFirstLetter(weather.weather[0].description)}
+									</span>
+								</div>
+								<div className='weather_details'>
+									<img src={wind} className='white-svg det_img' />
+									{Math.round(weather.wind_speed)} Km/h <br />
+
+									<img src={wet} className='white-svg det_img' />
+									{Math.round(weather.pop * 100)} % <br />
+
+									{
+										weather.rain && weather.rain >= 1 &&
+										<>
+											<img src={moisture} className='white-svg det_img' />
+											{Math.round(weather.rain)} mm <br />
+										</>
+									}
+								</div>
+							</td>
+						))}
+					</tr>
+				</tbody>
+			</table>
+		</>;
+	}
+}
 class Graph extends React.Component {
 	render() {
-		if (this.props.weather != true) {
-			return null;
-		}
-
-		const max = getMax(this.props.weather_data.hourly);
-		const min = getMin(this.props.weather_data.hourly);
+		const max = getMax(this.props.weatherData.hourly);
+		const min = getMin(this.props.weatherData.hourly);
 
 		return <>
-			<div className='weather_back'></div>
-			<table className="Weather weather">
+			<table className="Graph weather">
 				<tbody>
-					{this.props.weather == true &&
-						<tr>
-							{this.props.weather_data.hourly.slice(0, 32).map((weather, i) => (
-								<>
-									{(i + 2) % 2 == 0 &&
-										<td>
-											<div className='weather_block'>
-												<br /><br />
+					<tr>
+						{this.props.weatherData.hourly.slice(0, 32).map((weather, i) => (
+							<>
+								{(i + 2) % 2 == 0 &&
+									<td>
+										<div className='weather_block'>
+											<br /><br />
 
-												<BlockTemp
-													weather_data={this.props.weather_data}
-													temp={weather.temp}
-													i={i}
-													max={max}
-													min={min}
-												/>
+											<BlockTemp
+												weatherData={this.props.weatherData}
+												temp={weather.temp}
+												i={i}
+												max={max}
+												min={min}
+											/>
 
-												<div className='canva_point_temp' style={gstyle(weather.temp, max, min)}>
-												</div>
-												<div className='canva_line' style={rstyle(i, weather.temp, this.props.weather_data.hourly[i + 2].temp, max, min)}>
-
-												</div>
-
-												{this.props.weather_data.hourly[i - 2] ?
-													<>
-														{this.props.weather_data.hourly[i - 2].weather[0].icon.replace("04", "03") === this.props.weather_data.hourly[i].weather[0].icon.replace("04", "03") ?
-															<div className="fake_img">
-																<span></span>
-															</div>
-															:
-															<img src={'weather/' + weather.weather[0].icon + '.png'} />
-														}
-													</>
-													:
-													<img src={'weather/' + weather.weather[0].icon + '.png'} />
-												}
-												<br />
-												{(i + 2) % 4 === 0 ?
-													<>
-														<span className="canva_lineup_time"></span>
-														<div className="canva_block_time">
-															{gtime(weather.dt)}
-														</div>
-													</>
-													:
-													<>
-														<span className="canva_linenone_time"></span>
-														<div className="canva_block_time"></div>
-													</>
-												}
+											<div className='canva_point_temp' style={gstyle(weather.temp, max, min)}>
+											</div>
+											<div className='canva_line' style={rstyle(i, weather.temp, this.props.weatherData.hourly[i + 2].temp, max, min)}>
 
 											</div>
-										</td>
-									}
-								</>
-							))}
-						</tr>
-					}
+
+											{this.props.weatherData.hourly[i - 2] ?
+												<>
+													{this.props.weatherData.hourly[i - 2].weather[0].icon.replace("04", "03") === this.props.weatherData.hourly[i].weather[0].icon.replace("04", "03") ?
+														<div className="fake_img">
+															<span></span>
+														</div>
+														:
+														<img src={'weather/' + weather.weather[0].icon + '.png'} />
+													}
+												</>
+												:
+												<img src={'weather/' + weather.weather[0].icon + '.png'} />
+											}
+											<br />
+											{(i + 2) % 4 === 0 ?
+												<>
+													<span className="canva_lineup_time"></span>
+													<div className="canva_block_time">
+														{gtime(weather.dt)}
+													</div>
+												</>
+												:
+												<>
+													<span className="canva_linenone_time"></span>
+													<div className="canva_block_time"></div>
+												</>
+											}
+
+										</div>
+									</td>
+								}
+							</>
+						))}
+					</tr>
 				</tbody>
 			</table>
 		</>;
@@ -254,15 +271,13 @@ function rstyle(i, temp, temp2, dmax, dmin) {
 function angle(cx, cy, ex, ey) {
 	var dy = ey - cy;
 	var dx = ex - cx;
-	var theta = Math.atan2(dy, dx); // range (-PI, PI]
-	theta *= 180 / Math.PI; // rads to degs, range (-180, 180]
-	//if (theta < 0) theta = 360 + theta; // range [0, 360)
+	var theta = Math.atan2(dy, dx);
+	theta *= 180 / Math.PI;
 	return theta;
 }
 function gtime(timestamp) {
 	const d = new Date(timestamp * 1000);
 	let time = d.getHours();
-
 	return time + ':00';
 }
 
@@ -279,15 +294,79 @@ function getMax(all) {
 
 function getMin(all) {
 	let min = all[0].temp;
-
 	for (let i = 0; i < 28; i += 2) {
 		if (all[i].temp < min) {
 			min = all[i].temp;
 		}
 	}
-
 	return min;
 }
 
-export default Weather;
-export { Home, Graph };
+function greetings() {
+	const hour = new Date().getHours();
+	if (hour >= 5 && hour < 12) {
+		return "Bonjour";
+	}
+	if (hour < 18) {
+		return "Bon après-midi";
+	}
+	if (hour < 22) {
+		return "Bonne soirée";
+	}
+	return "Bonne nuit";
+}
+
+function getPerdiod() {
+	const hour = new Date().getHours();
+	if (hour >= 5 && hour < 12) {
+		return "Matinée";
+	}
+	if (hour < 18) {
+		return "Journée";
+	}
+	if (hour < 22) {
+		return "Soirée";
+	}
+	return "Nuit";
+}
+function getSeason() {
+	const month = new Date().getMonth();
+	if (month < 2) {
+        return "Hiver";
+    }
+    if (month < 5) {
+        return "Primptemps";
+    }
+    if (month < 8) {
+        return "Eté";
+    }
+    return "Automne";
+}
+//function getLabImage(weather) {
+//	const period = getPerdiod();
+//	const season = getSeason();
+//	const key = credentials.API_lab;
+//
+//	const url = `http://lab.hackernwar.com/v0.1/image?keywords[]=${weather}&keywords[]=${season}&keywords[]=${period}&key=${key}`;
+//
+//	return img;
+//}
+
+function isRainSoon(weather) {
+	const hourly = weather.hourly;
+	if (hourly[0].rain) {
+		return '';
+	}
+	for (let i = 0; i < hourly.length; i++) {
+		if (hourly[i].rain) {
+			return `${capitalizeFirstLetter(hourly[i].weather[0].description)} dans ${i} heures.`;
+		}
+		if (i > 12) {
+			return '';
+		}
+	}
+	return '';
+}
+
+export default Home;
+export { Weather, Graph };

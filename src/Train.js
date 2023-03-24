@@ -74,7 +74,7 @@ class Train extends React.Component {
         }
 
         var diff = created_real_time - created_base_time;
-        
+
         var msec = diff;
         var hh = Math.floor(msec / 1000 / 60 / 60);
         msec -= hh * 1000 * 60 * 60;
@@ -125,7 +125,7 @@ class Info extends React.Component {
             return <span className="trafic_delete"><b> Supprimé </b></span>;
 
         if (state == 'delayed')
-            return <span className="trafic"><b> Retardé </b></span>;
+            return <span className="trafic_warning"><b> Retardé </b></span>;
 
         real_time = createDate(real_time);
         base_time = createDate(base_time);
@@ -143,23 +143,21 @@ class Info extends React.Component {
 
         if (mm > 0 && hh >= 0) {
             if (hh == 0)
-                return <span className="trafic"><b> +{mm}’</b> </span>;
+                return <span className="trafic_warning"><b> +{mm}’</b> </span>;
             else
-                return <span className="trafic"><b> +{hh}h{mm + hh * 60}’</b> </span>;
+                return <span className="trafic_warning"><b> +{hh}h{mm + hh * 60}’</b> </span>;
         }
-
         return null;
     }
 }
 
 function getClass(state, message, real_time, base_time) {
-
     if (state == 'cancelled')
         return 'cancelled';
-        
+
     if (state == 'delayed')
         return 'late';
-        
+
 
     real_time = createDate(real_time);
     base_time = createDate(base_time);

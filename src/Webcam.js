@@ -33,13 +33,13 @@ class Webcam extends React.Component  {
 	}
 
 	render(){
-		const name = ["Arcabulle", "Aiguille Rouge"];
 		const webcam = [
 			"https://srv05.trinum.com/ibox/ftpcam/mega_les-arcs_arcabulle.jpg",
-			"https://srv07.trinum.com/ibox/ftpcam/mega_les_arcs_aiguille.jpg"];
+			"https://srv07.trinum.com/ibox/ftpcam/mega_les_arcs_aiguille.jpg"
+		];
 
 		let date = new Date();
-		let code = date.getMonth() + '.' + date.getDate() + 's' + date.getHours();
+		let code = date.getMonth() + '_' + date.getDate() + '_' + date.getHours();
 
 		let style = {
 			backgroundImage: 'url("' + webcam[this.state.curent] + '?v=' + code + '")',
