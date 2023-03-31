@@ -1,6 +1,6 @@
 import React from 'react';
 
-import background from './assets/img/img-nOxoOfoDljsXRcLIhKSBrvI9.png';
+import background from './assets/img/background.png';
 
 import wind from './assets/img/svg/wind.svg';
 import wet from './assets/img/svg/wet.svg';
@@ -12,7 +12,7 @@ class Home extends React.Component {
 	render() {
 		if (!this.props.weather || !this.props.weatherData.hourly[1]) {
 			return <>
-				<div className='Background' style={{ backgroundImage: `url(${background})` }} />
+				<div className='Background' key='back1' style={{ backgroundImage: `url(${background})` }} />
 
 				<div className='bottom-shadow'>
 				</div>
@@ -24,8 +24,9 @@ class Home extends React.Component {
 
 		}
 		const weather = this.props.weatherData.hourly[1];
+
 		return <>
-			<div className='Background' style={{ backgroundImage: `url(${background})` }} />
+			<img className='Background' key='back2'  src={getLabImage(weather.weather[0].description)} />
 
 			<div className='bottom-shadow' />
 
@@ -316,41 +317,62 @@ function greetings() {
 	return "Bonne nuit";
 }
 
-function getPerdiod() {
+function getMomentOfDay() {
 	const hour = new Date().getHours();
-	if (hour >= 5 && hour < 12) {
-		return "Matinée";
+	let moment = "";
+
+	if (hour >= 4 && hour < 6) {
+		moment = "Aube";
+	} else if (hour >= 6 && hour < 9) {
+		moment = "Matiné";
+	} else if (hour >= 9 && hour < 14) {
+		moment = "Journée";
+	} else if (hour >= 14 && hour < 18) {
+		moment = "Après-Midi";
+	} else if (hour >= 18 && hour < 20) {
+		moment = "Soirée";
+	} else if (hour >= 20 && hour < 22) {
+		moment = "Crépuscule";
+	} else {
+		moment = "Nuit";
 	}
-	if (hour < 18) {
-		return "Journée";
-	}
-	if (hour < 22) {
-		return "Soirée";
-	}
-	return "Nuit";
+
+	return moment;
 }
+
 function getSeason() {
 	const month = new Date().getMonth();
 	if (month < 2) {
-        return "Hiver";
-    }
-    if (month < 5) {
-        return "Primptemps";
-    }
-    if (month < 8) {
-        return "Eté";
-    }
-    return "Automne";
+		return "Hiver";
+	}
+	if (month < 5) {
+		return "Primptemps";
+	}
+	if (month < 8) {
+		return "Eté";
+	}
+	return "Automne";
 }
-//function getLabImage(weather) {
-//	const period = getPerdiod();
-//	const season = getSeason();
-//	const key = credentials.API_lab;
-//
-//	const url = `http://lab.hackernwar.com/v0.1/image?keywords[]=${weather}&keywords[]=${season}&keywords[]=${period}&key=${key}`;
-//
-//	return img;
-//}
+
+function getLabImage(weather) {
+	const momentOfDay = getMomentOfDay();
+	const season = getSeason();
+	const key = credentials.API_lab;
+
+	const url = `http://lab.hackernwar.com/v0.1/image?keywords[]=${weather}&keywords[]=${season}&keywords[]=${momentOfDay}&key=${key}`;
+	console.log(url);
+	return url; //getImage(url);
+}
+
+async function getImage(url) {
+	fetch(url)
+		.then(response => response.blob())
+		.then(blob => {
+			const imgUrl = URL.createObjectURL(blob);
+			console.log(imgUrl);
+			return imgUrl;
+		});
+}
 
 function isRainSoon(weather) {
 	const hourly = weather.hourly;

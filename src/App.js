@@ -17,6 +17,7 @@ function App() {
 	const [error, setError] = useState('');
 	const [weatherData, setWeatherData] = useState([]);
 	const [weather, setWeather] = useState(false);
+	const [backgroundImage, setBackgroundImage] = useState('');
 	const [coord_lat, setCoord_lat] = useState('');
 	const [coord_lon, setCoord_lon] = useState('');
 
@@ -123,7 +124,7 @@ function App() {
 	}
 
 	const classes = () => {
-		if (timer < 1000 * 10) {
+		if (timer < 1000 * 10 || 1 == 1) {
 			return 'home';
 		} else if (timer < 1000 * 25) {
 			return 'home weather';
@@ -132,12 +133,14 @@ function App() {
 		}
 	}
 
-	if (timer < 1000 * 40) {
+	if (timer < 1000 * 40 || 1 == 1) {
 		return <div className={classes()}>
 			<Clock />
 			<Home
 				weather={weather}
 				weatherData={weatherData}
+				backgroundImage={backgroundImage}
+				setBackgroundImage={setBackgroundImage}
 			/>
 			{
 				weather
