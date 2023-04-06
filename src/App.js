@@ -10,7 +10,6 @@ import Clock from './Clock';
 const credentials = require('./crendential.json');
 
 function App() {
-
 	const [timer, setTimer] = useState(0);
 	const [trafic, setTrafic] = useState([]);
 	const [trains, setTrains] = useState([]);
@@ -18,8 +17,8 @@ function App() {
 	const [weatherData, setWeatherData] = useState([]);
 	const [weather, setWeather] = useState(false);
 	const [backgroundImage, setBackgroundImage] = useState('');
-	const [coord_lat, setCoord_lat] = useState('');
-	const [coord_lon, setCoord_lon] = useState('');
+	const [coord_lat, setCoord_lat] = useState(null);
+	const [coord_lon, setCoord_lon] = useState(null);
 
 	useEffect(() => {
 		getTrafic();
@@ -42,6 +41,7 @@ function App() {
 		);
 		const intervalWeather = setInterval(
 			() => getWeather(),
+			// 1000 * 2
 			1000 * 60 * 60
 		);
 		return () => {
@@ -75,32 +75,51 @@ function App() {
 		let lat, lon;
 
 		if (position) {
-			setCoord_lat(lat);
-			setCoord_lon(lon);
+			console.log(position);
 			lat = position.coords.latitude;
 			lon = position.coords.longitude;
+			if (lat && lon) {
+				setCoord_lat(lat);
+				setCoord_lon(lon);
+			} else {
+				lat = coord_lat;
+				lon = coord_lon;
+			}
 		} else {
 			lat = coord_lat;
 			lon = coord_lon;
 		}
 
-		let url = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&appid=' + credentials.API_weather + '&units=metric&lang=fr';
+		console.log(lat, lon);
 
-		const headers = new Headers();
-		headers.append('Accept', 'application/json');
+		if (lat && lon) {
+			console.log('getWeather');
+			let url = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&appid=' + credentials.API_weather + '&units=metric&lang=fr';
 
-		fetch(url, {
-			method: 'GET',
-			headers: headers,
-		})
-			.then(res => res.json())
-			.then(data => {
-				setWeatherData(data);
-				setWeather(true);
+			const headers = new Headers();
+			headers.append('Accept', 'application/json');
+
+			fetch(url, {
+				method: 'GET',
+				headers: headers,
 			})
-			.catch(err => {
-				setWeather(false);
-			});
+				.then(res => {
+					if (res.status === 200) {
+						return res.json();
+					}
+					setWeather(false);
+					throw new Error('Error');
+				})
+				.then(data => {
+					setWeatherData(data);
+					setWeather(true);
+				})
+				.catch(err => {
+					setWeather(false);
+				});
+		}
+		setWeather(false);
+
 	}
 	function getTrain() {
 		const base = 'https://navika.hackernwar.com/v0.1/'
@@ -124,7 +143,7 @@ function App() {
 	}
 
 	const classes = () => {
-		if (timer < 1000 * 10 || 1 == 1) {
+		if (timer < 1000 * 10) {
 			return 'home';
 		} else if (timer < 1000 * 25) {
 			return 'home weather';
@@ -133,7 +152,7 @@ function App() {
 		}
 	}
 
-	if (timer < 1000 * 40 || 1 == 1) {
+	if (timer < 1000 * 40) {
 		return <div className={classes()}>
 			<Clock />
 			<Home

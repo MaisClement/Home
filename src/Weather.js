@@ -10,7 +10,7 @@ const credentials = require('./crendential.json');
 
 class Home extends React.Component {
 	render() {
-		if (!this.props.weather || !this.props.weatherData.hourly[1]) {
+		if (!this.props.weather || !this.props.weatherData || !this.props.weatherData.hourly[1]) {
 			return <>
 				<div className='Background' key='back1' style={{ backgroundImage: `url(${background})` }} />
 
@@ -26,7 +26,7 @@ class Home extends React.Component {
 		const weather = this.props.weatherData.hourly[1];
 
 		return <>
-			<img className='Background' key='back2'  src={getLabImage(weather.weather[0].description)} />
+			<img className='Background' key='back2' src={getLabImage(weather.weather[0].description)} />
 
 			<div className='bottom-shadow' />
 
@@ -360,18 +360,7 @@ function getLabImage(weather) {
 	const key = credentials.API_lab;
 
 	const url = `http://lab.hackernwar.com/v0.1/image?keywords[]=${weather}&keywords[]=${season}&keywords[]=${momentOfDay}&key=${key}`;
-	console.log(url);
 	return url; //getImage(url);
-}
-
-async function getImage(url) {
-	fetch(url)
-		.then(response => response.blob())
-		.then(blob => {
-			const imgUrl = URL.createObjectURL(blob);
-			console.log(imgUrl);
-			return imgUrl;
-		});
 }
 
 function isRainSoon(weather) {
