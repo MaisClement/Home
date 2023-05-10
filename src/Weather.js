@@ -126,11 +126,11 @@ class Weather extends React.Component {
 									<br /><br />
 									<div>
 										<span className='temp_min'>
-											{Math.round(weather.temp.min)}°<b>C</b>
+											<b>{Math.round(weather.temp.min)}</b>°<b>C</b>
 										</span>
 										<span className='temp_space'></span>
 										<span className='temp_max'>
-											{Math.round(weather.temp.max)}°<b>C</b>
+											<b>{Math.round(weather.temp.max)}</b>°<b>C</b>
 										</span>
 									</div>
 									<br />

@@ -52,6 +52,10 @@ function App() {
 		}
 	}, []);
 
+	useEffect(() => {
+		getWeather();
+	}, [coord_lat, coord_lon]);
+
 	async function getTrafic() {
 		let url = 'https://navika.hackernwar.com/v0.1/trafic';
 
@@ -66,60 +70,45 @@ function App() {
 	}
 	function getPos() {
 		if (navigator.geolocation) {
-			navigator.geolocation.getCurrentPosition(getWeather);
+			navigator.geolocation.getCurrentPosition(setPos);
 		} else {
 			setWeather(false);
 		}
 	}
-	function getWeather(position) {
-		let lat, lon;
+	function setPos(position = null) {
+		setCoord_lat(position.coords.latitude);
+		setCoord_lon(position.coords.longitude);
 
-		if (position) {
-			console.log(position);
-			lat = position.coords.latitude;
-			lon = position.coords.longitude;
-			if (lat && lon) {
-				setCoord_lat(lat);
-				setCoord_lon(lon);
-			} else {
-				lat = coord_lat;
-				lon = coord_lon;
-			}
-		} else {
-			lat = coord_lat;
-			lon = coord_lon;
+		getWeather();
+	}
+	function getWeather() {
+		if (!coord_lat || !coord_lon) {
+			return;
 		}
+		console.log('getWeather');
+		let url = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + coord_lat + '&lon=' + coord_lon + '&appid=' + credentials.API_weather + '&units=metric&lang=fr';
 
-		console.log(lat, lon);
+		const headers = new Headers();
+		headers.append('Accept', 'application/json');
 
-		if (lat && lon) {
-			console.log('getWeather');
-			let url = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&appid=' + credentials.API_weather + '&units=metric&lang=fr';
-
-			const headers = new Headers();
-			headers.append('Accept', 'application/json');
-
-			fetch(url, {
-				method: 'GET',
-				headers: headers,
+		fetch(url, {
+			method: 'GET',
+			headers: headers,
+		})
+			.then(res => {
+				if (res.status === 200) {
+					return res.json();
+				}
+				setWeather(false);
+				throw new Error('Error');
 			})
-				.then(res => {
-					if (res.status === 200) {
-						return res.json();
-					}
-					setWeather(false);
-					throw new Error('Error');
-				})
-				.then(data => {
-					setWeatherData(data);
-					setWeather(true);
-				})
-				.catch(err => {
-					setWeather(false);
-				});
-		}
-		setWeather(false);
-
+			.then(data => {
+				setWeatherData(data);
+				setWeather(true);
+			})
+			.catch(err => {
+				setWeather(false);
+			});
 	}
 	function getTrain() {
 		const base = 'https://navika.hackernwar.com/v0.1/'
