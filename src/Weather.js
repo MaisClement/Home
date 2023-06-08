@@ -5,6 +5,7 @@ import background from './assets/img/background.png';
 import wind from './assets/img/svg/wind.svg';
 import wet from './assets/img/svg/wet.svg';
 import moisture from './assets/img/svg/moisture.svg';
+import neige from './assets/img/neige_nuit.png';
 
 const credentials = require('./crendential.json');
 
@@ -26,7 +27,7 @@ class Home extends React.Component {
 		const weather = this.props.weatherData.hourly[1];
 
 		return <>
-			<img className='Background' key='back2' src={getLabImage(weather.weather[0].description)} />
+			<img className='Background' key='back2' src={neige} />
 
 			<div className='bottom-shadow' />
 

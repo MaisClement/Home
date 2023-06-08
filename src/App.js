@@ -41,7 +41,6 @@ function App() {
 		);
 		const intervalWeather = setInterval(
 			() => getWeather(),
-			// 1000 * 2
 			1000 * 60 * 60
 		);
 		return () => {
@@ -112,8 +111,8 @@ function App() {
 	}
 	function getTrain() {
 		const base = 'https://navika.hackernwar.com/v0.1/'
-		const stop = 'stop_area:IDFM:41234';
-		const url = base + 'schedules_line?s=' + stop + '&l=C01736';
+		const stop = 'IDFM:64199';
+		const url = base + 'schedules?s=' + stop + '&l=IDFM:C01736';
 
 		fetch(url)
 			.then(res => res.json())
@@ -180,22 +179,5 @@ function App() {
 		<Webcam />
 	</>;
 }
-
-/*
-<Trafic
-	trafic={trafic}
-/>
-<Trafic
-	trafic={trafic}
-/>
-<Train
-	trains={trains}
-	error={error}
-/>
-<Webcam />
-*/
-
-
-
 
 export default App;
