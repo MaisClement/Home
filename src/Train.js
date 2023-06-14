@@ -9,7 +9,7 @@ import maintenance from './assets/img/maintenance.png';
 class Trains extends React.Component {
     render() {
         return <div className="Départ">
-            {this.props.trains[0] ?
+            {this.props.trains && this.props.trains.length ?
                 <>
                     {this.props.trains[0].departures.map((departure, i) => (
                         <Train
