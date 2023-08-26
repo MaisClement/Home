@@ -110,9 +110,9 @@ function App() {
 			});
 	}
 	function getTrain() {
-		const base = 'https://navika.hackernwar.com/v0.1/'
+		const base = 'https://navika.hackernwar.com/'
 		const stop = 'IDFM:64199';
-		const url = base + 'schedules?id=' + stop + '&l=IDFM:C01736';
+		const url = base + 'schedules/' + stop + '?l=IDFM:C01736';
 
 		fetch(url)
 			.then(res => res.json())
