@@ -17,7 +17,7 @@ function Trafic({trafic}) {
 	}
 
 	return <div className="App">
-		<SNCF_trafic line={'C01736'} name={'TRANSILIEN N'} img={TRAIN_N} trafics={trafic} />
+		<SNCF_trafic line={'IDFM:C01736'} name={'TRANSILIEN N'} img={TRAIN_N} trafics={trafic} />
 	</div>
 }
 
@@ -135,11 +135,8 @@ function SNCF_det({ trafic }) {
 
 function SNCF_trim_title({ txt }) {
 	let text = txt;
-
-	text = text.replaceAll("Ligne N : ", "");
+	
 	text = text.replaceAll("Ligne N :", "");
-	text = text.replaceAll("Ligne N:", "");
-	text = text.replaceAll("Ligne N", "");
 
 	return <b>
 		{capitalizeFirstLetter(text)}

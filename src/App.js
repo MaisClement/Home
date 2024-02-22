@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 
 import Trafic from './Trafic';
 import Webcam from './Webcam';
+import Wallpaper from './Wallpaper';
 import Train from './Train';
 import Home, { Weather, Graph } from './Weather';
 import Clock from './Clock';
@@ -16,9 +17,7 @@ function App() {
 	const [error, setError] = useState('');
 	const [weatherData, setWeatherData] = useState([]);
 	const [weather, setWeather] = useState(false);
-	const [backgroundImage, setBackgroundImage] = useState('');
-	const [coord_lat, setCoord_lat] = useState(null);
-	const [coord_lon, setCoord_lon] = useState(null);
+	const [pos, setPos] = useState(false);
 
 	useEffect(() => {
 		getTrafic();
@@ -41,7 +40,7 @@ function App() {
 		);
 		const intervalWeather = setInterval(
 			() => getWeather(),
-			1000 * 60 * 60
+			1000 * 60 * 1
 		);
 		return () => {
 			clearInterval(intervalTimer);
@@ -53,10 +52,10 @@ function App() {
 
 	useEffect(() => {
 		getWeather();
-	}, [coord_lat, coord_lon]);
+	}, [pos]);
 
 	async function getTrafic() {
-		let url = 'https://navika.hackernwar.com/v0.1/trafic';
+		let url = 'https://navika.hackernwar.com/trafic';
 
 		fetch(url)
 			.then(res => res.json())
@@ -67,25 +66,25 @@ function App() {
 				setTrafic([]);
 			});
 	}
+
 	function getPos() {
 		if (navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition(setPos);
+			getWeather();
 		} else {
 			setWeather(false);
 		}
 	}
-	function setPos(position = null) {
-		setCoord_lat(position.coords.latitude);
-		setCoord_lon(position.coords.longitude);
 
-		getWeather();
-	}
 	function getWeather() {
-		if (!coord_lat || !coord_lon) {
+		if (pos == false) {
+			console.log('! getWeather !');
+			console.log(pos);
 			return;
 		}
 		console.log('getWeather');
-		let url = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + coord_lat + '&lon=' + coord_lon + '&appid=' + credentials.API_weather + '&units=metric&lang=fr';
+		console.log(pos);
+		let url = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + pos.coords.latitude + '&lon=' + pos.coords.longitude + '&appid=' + credentials.API_weather + '&units=metric&lang=fr';
 
 		const headers = new Headers();
 		headers.append('Accept', 'application/json');
@@ -109,6 +108,7 @@ function App() {
 				setWeather(false);
 			});
 	}
+
 	function getTrain() {
 		const base = 'https://navika.hackernwar.com/'
 		const stop = 'IDFM:64199';
@@ -143,11 +143,13 @@ function App() {
 	if (timer < 1000 * 40) {
 		return <div className={classes()}>
 			<Clock />
+			<Wallpaper
+				state={weather}
+				weatherData={weatherData}
+			/>
 			<Home
 				weather={weather}
 				weatherData={weatherData}
-				backgroundImage={backgroundImage}
-				setBackgroundImage={setBackgroundImage}
 			/>
 			{
 				weather
@@ -173,11 +175,12 @@ function App() {
 				error={error}
 			/>
 		</>;
+	} else {
+		return <>
+			<Clock />
+			<Webcam />
+		</>;
 	}
-	return <>
-		<Clock />
-		<Webcam />
-	</>;
 }
 
 export default App;

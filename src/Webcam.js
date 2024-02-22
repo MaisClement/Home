@@ -34,8 +34,8 @@ class Webcam extends React.Component  {
 
 	render(){
 		const webcam = [
-			"https://srv05.trinum.com/ibox/ftpcam/mega_les-arcs_arcabulle.jpg",
-			"https://srv07.trinum.com/ibox/ftpcam/mega_les_arcs_aiguille.jpg"
+			"https://lab.hackernwar.com/webcam_1.php",
+			"https://lab.hackernwar.com/webcam_2.php"
 		];
 
 		let date = new Date();

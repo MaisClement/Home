@@ -1,20 +1,32 @@
 import React from 'react';
 
-import background from './assets/img/background.png';
-
 import wind from './assets/img/svg/wind.svg';
 import wet from './assets/img/svg/wet.svg';
 import moisture from './assets/img/svg/moisture.svg';
-import neige from './assets/img/neige_nuit.png';
 
-const credentials = require('./crendential.json');
+const imgs = [
+	'0000',
+	'0101',  // Nouvel An
+	'0214',  // St Valentin
+	'0317',  // St Patrick
+	'0501',  // 1er Mai
+	'0508',  // Armistice
+	'0606',  // DDay
+	'0621',  // Fete de la musique
+	'0714',  // Fete nationale
+	'0921',  // Automne
+	'1031',  // Halloween
+	'1109',  // Chute du mur de Berlin
+	'1111',  // Armistice
+	'1221',  // Hiver
+	'1224',  // Noël
+	'1225',  // Noël
+	];
 
 class Home extends React.Component {
 	render() {
 		if (!this.props.weather || !this.props.weatherData || !this.props.weatherData.hourly[1]) {
 			return <>
-				<div className='Background' key='back1' style={{ backgroundImage: `url(${background})` }} />
-
 				<div className='bottom-shadow'>
 				</div>
 
@@ -27,10 +39,7 @@ class Home extends React.Component {
 		const weather = this.props.weatherData.hourly[1];
 
 		return <>
-			<img className='Background' key='back2' src={neige} />
-
 			<div className='bottom-shadow' />
-
 			<div className='temperature'>
 				<span className='description'>
 					{capitalizeFirstLetter(weather.weather[0].description)}
@@ -316,52 +325,6 @@ function greetings() {
 		return "Bonne soirée";
 	}
 	return "Bonne nuit";
-}
-
-function getMomentOfDay() {
-	const hour = new Date().getHours();
-	let moment = "";
-
-	if (hour >= 4 && hour < 6) {
-		moment = "Aube";
-	} else if (hour >= 6 && hour < 9) {
-		moment = "Matiné";
-	} else if (hour >= 9 && hour < 14) {
-		moment = "Journée";
-	} else if (hour >= 14 && hour < 18) {
-		moment = "Après-Midi";
-	} else if (hour >= 18 && hour < 20) {
-		moment = "Soirée";
-	} else if (hour >= 20 && hour < 22) {
-		moment = "Crépuscule";
-	} else {
-		moment = "Nuit";
-	}
-
-	return moment;
-}
-
-function getSeason() {
-	const month = new Date().getMonth();
-	if (month < 2) {
-		return "Hiver";
-	}
-	if (month < 5) {
-		return "Primptemps";
-	}
-	if (month < 8) {
-		return "Eté";
-	}
-	return "Automne";
-}
-
-function getLabImage(weather) {
-	const momentOfDay = getMomentOfDay();
-	const season = getSeason();
-	const key = credentials.API_lab;
-
-	const url = `http://lab.hackernwar.com/v0.1/image?keywords[]=${weather}&keywords[]=${season}&keywords[]=${momentOfDay}&key=${key}`;
-	return url; //getImage(url);
 }
 
 function isRainSoon(weather) {
